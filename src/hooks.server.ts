@@ -12,10 +12,12 @@ export const handle: Handle = async ({ event, resolve }) => {
         const data = await res.json();
 
         if (data.result) {
+            event.locals.is_authenticated = data.result;
             event.locals.session = data.data; // Simpan data user di `locals.session`
         } else {
             event.locals.session = null;
         }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         event.locals.session = null;
     }

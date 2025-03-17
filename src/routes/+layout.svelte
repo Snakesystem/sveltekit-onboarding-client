@@ -2,23 +2,30 @@
   import { onMount } from "svelte";
   import { goto, afterNavigate } from "$app/navigation";
   import { getStores } from "$app/stores";
+  import '../assets/scss/style.scss';
 
+  let pathname: string = "";
   export let data;
-  let session = data.session;
+  let is_authenticated = data.is_authenticated;
+  const url_authorized = ["/", "/profile"];
+  const url_unauthorized = ["/login", "/register"];
 
   const { page } = getStores();
+  pathname = $page.route.id || "";
 
   onMount(() => {
     afterNavigate(() => {
-      if (!session && ["/", "/profile"].includes(page.url.pathname)) {
-        goto("/login", { replaceState: true });
-      } else if (
-        session &&
-        ["/login", "/register"].includes(page.url.pathname)
-      ) {
+      if (!is_authenticated && url_authorized.includes(pathname)) {
+        if (!url_unauthorized.includes(pathname)) {
+          goto(pathname, { replaceState: true });
+        }
+      } else if ( is_authenticated && url_unauthorized.includes(pathname)) {
         goto("/", { replaceState: true });
       }
     });
+    if (is_authenticated && url_unauthorized.includes(pathname)) {
+      goto("/", { replaceState: true });
+    } 
   });
 </script>
 
