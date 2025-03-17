@@ -117,3 +117,35 @@ export function getInitials(name: string = ""): string {
     }
     return words.map(word => word[0]?.toUpperCase()).join(""); // Ambil huruf pertama dari tiap kata
 }
+
+import { Google } from "arctic";
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "$env/static/private";
+import type { RequestEvent } from "@sveltejs/kit";
+
+export const google = new Google(
+	GOOGLE_CLIENT_ID,
+	GOOGLE_CLIENT_SECRET,
+	"http://localhost:5173/login/google/callback"
+);
+
+export function generateSessionToken(): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let token = '';
+    for (let i = 0; i < 16; i++) {
+        token += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return token;
+}
+
+export function createSession(sessionToken: string, id: any) {
+    const session = {
+        session_token: sessionToken,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+    };
+    return session;
+}
+
+export function setSessionTokenCookie(event: RequestEvent<Partial<Record<string, string>>, string | null>, sessionToken: string, expiresAt: any) {
+    document.cookie = `session_token=${sessionToken}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict; Secure; HttpOnly; SameSite=None;`;
+}

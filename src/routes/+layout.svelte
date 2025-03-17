@@ -10,8 +10,8 @@
   let loading = false;
   export let data;
   let is_authenticated = data.is_authenticated;
-  const url_authorized = ["/", "/profile"];
-  const url_unauthorized = ["/login", "/register"];
+  const url_authorized = ["/", "/profile", "/*"];
+  const url_unauthorized = ["/login", "/register", "/*"];
 
   const { page } = getStores();
   pathname = $page.route.id || "";
@@ -55,6 +55,9 @@
 
 {#if loading}
     <Loading />
+{:else if $page.status === 404}
+  <h1>404 - Page Not Found</h1>
+  <a href="/">Go back home</a>
 {:else}
     <slot />
 {/if}

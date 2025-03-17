@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
     import { getInitials, userInfo } from "../lib/index.js";
     import { cubicOut } from "svelte/easing";
     import { tweened } from "svelte/motion";
@@ -18,12 +19,31 @@
         }
     }
 
+    async function logout() {
+        await fetch("http://localhost:8000/api/v1/auth/logout", {
+            credentials: "include",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res: any) => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return res.json()
+            }
+        }).catch((err) => {
+            console.log(err)
+        });
+        goto("/login");
+    }
+
 </script>
 
 <nav class="navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Logo</a>
-        <button class="bg-info rounded-circle" style="width: 40px; height: 40px;" onclick={toggleNav}>
+        <button class="bg-primary rounded-circle" style="width: 40px; height: 40px;" onclick={toggleNav}>
             <span>
                 {#if session?.picture}
                     <img src={session.picture} alt="" />
@@ -44,7 +64,7 @@
                 <a class="nav-link" aria-current="page" href="/"><i class="bi bi-person-fill"></i><span>Profile</span></a>
                 <a class="nav-link" href="/"><i class="bi bi-columns-gap"></i><span>Features</span></a>
                 <a class="nav-link" href="/"><i class="bi bi-columns-gap"></i><span>Setings</span></a>
-                <a class="nav-link" href="/"><i class="bi bi-columns-gap"></i><span>Lang</span></a>
+                <button class="nav-link" onclick={() => logout()}><i class="bi bi-columns-gap"></i><span>Keluar</span></button>
             </div>
             <button class="btn-close btn-close-white fw-bold" aria-label="Close" onclick={toggleNav}></button>
         </div>
@@ -73,7 +93,7 @@
         width: 50%;
         height: 70%;
         border-bottom-left-radius: 90%;
-        background: linear-gradient(59deg, #f19e18 0%, #e62314 89%);
+        background: linear-gradient(59deg, #2AF598 0%, #08AEEA 89%);
         z-index: 99;
     }
 
@@ -98,7 +118,6 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            color: #abc7df;
 
             &:hover {
                 color: #FFFFFF;

@@ -54,5 +54,8 @@
 	},
 	"keywords": [
 		"svelte"
-	]
+	],
+	"dependencies": {
+		"arctic": "^3.5.0"
+	}
 }
