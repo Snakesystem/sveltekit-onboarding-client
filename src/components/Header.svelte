@@ -1,19 +1,21 @@
 <script lang="ts">
     import { getInitials, userInfo } from "../lib/index.js";
-    import { slide, scale } from "svelte/transition";
     import { cubicOut } from "svelte/easing";
     import { tweened } from "svelte/motion";
-    import { writable } from "svelte/store";
 
     const {session} = $props();
 
     let showNav = $state(false);
-
     let navPosition = tweened({ x: 100, y: -100, opacity: 0 }, { duration: 400, easing: cubicOut });
 
     function toggleNav() {
-        showNav = !showNav;
-        navPosition.set(showNav ? { x: 0, y: 0, opacity: 1 } : { x: 100, y: -100, opacity: 0 });
+        if (showNav) {
+            navPosition.set({ x: 100, y: -100, opacity: 0 });
+            setTimeout(() => (showNav = false), 400); // Tunggu animasi selesai
+        } else {
+            showNav = true;
+            navPosition.set({ x: 0, y: 0, opacity: 1 });
+        }
     }
 
 </script>
@@ -34,25 +36,27 @@
 </nav>
 
 {#if showNav}
-    <div class="nav-menu" style="transform: translate({$navPosition.x}%, {$navPosition.y}%); opacity: {$navPosition.opacity};">
+    <div class="nav-menu" 
+        style="transform: translate({$navPosition.x}%, {$navPosition.y}%); opacity: {$navPosition.opacity};"
+        onoutrostart={() => navPosition.set({ x: 100, y: -100, opacity: 0 })}>
         <div class="nav-content">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                <a class="nav-link" href="/">Features</a>
-                <a class="nav-link" href="/">Pricing</a>
-                <a class="nav-link" href="/">Disabled</a>
+                <a class="nav-link" aria-current="page" href="/"><i class="bi bi-person-fill"></i><span>Profile</span></a>
+                <a class="nav-link" href="/"><i class="bi bi-columns-gap"></i><span>Features</span></a>
+                <a class="nav-link" href="/"><i class="bi bi-columns-gap"></i><span>Setings</span></a>
+                <a class="nav-link" href="/"><i class="bi bi-columns-gap"></i><span>Lang</span></a>
             </div>
-            <button class="bg-info rounded-circle">Tombol</button>
+            <button class="btn-close btn-close-white fw-bold" aria-label="Close" onclick={toggleNav}></button>
         </div>
     </div>
 {/if}
 
-<style>
+<style scoped lang="scss">
     .nav-menu {
         position: fixed;
         top: 0;
         right: 0;
-        width: 100%; /* Sepertiga layar */
+        width: 100%; 
         height: 100%;
         display: flex;
         justify-content: end;
@@ -64,13 +68,12 @@
         position: absolute;
         display: flex;
         flex-direction: column;
-        align-items: end;
-        gap: 20px;
-        width: 80%;
-        height: 80%;
-        box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.2);
-        border-bottom-left-radius: 95%;
-        background: white;
+        align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 70%;
+        border-bottom-left-radius: 90%;
+        background: linear-gradient(59deg, #f19e18 0%, #e62314 89%);
         z-index: 99;
     }
 
@@ -83,7 +86,53 @@
         transition: color 0.3s;
     }
 
-    .nav-link:hover {
-        color: #0d6efd;
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20rem;
+        margin-bottom: 10rem;
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #abc7df;
+
+            &:hover {
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .btn-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+
+        &:hover {
+            color: #FFFFFF;
+            font-weight: bold;
+            transform: scale(1.1);
+            transition: transform 0.3s ease-in-out;
+            border: none;
+            background-color: transparent;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .nav-content {
+            width: 90%;
+            height: 50%;
+
+            .navbar-nav {
+                margin-left: 12rem;
+                justify-content: end;
+                margin-bottom: 0;
+                
+            }
+        }
     }
 </style>
