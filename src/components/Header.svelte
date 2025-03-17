@@ -1,14 +1,19 @@
 <script lang="ts">
     import { getInitials, userInfo } from "../lib/index.js";
-    import { slide } from "svelte/transition";
+    import { slide, scale } from "svelte/transition";
+    import { cubicOut } from "svelte/easing";
+    import { tweened } from "svelte/motion";
     import { writable } from "svelte/store";
 
     const {session} = $props();
 
-    let showNav = writable(false);
+    let showNav = $state(false);
+
+    let navPosition = tweened({ x: 100, y: -100, opacity: 0 }, { duration: 400, easing: cubicOut });
 
     function toggleNav() {
-        showNav.update(v => !v);
+        showNav = !showNav;
+        navPosition.set(showNav ? { x: 0, y: 0, opacity: 1 } : { x: 100, y: -100, opacity: 0 });
     }
 
 </script>
@@ -28,13 +33,16 @@
     </div>
 </nav>
 
-{#if $showNav}
-    <div class="nav-menu" transition:slide>
+{#if showNav}
+    <div class="nav-menu" style="transform: translate({$navPosition.x}%, {$navPosition.y}%); opacity: {$navPosition.opacity};">
         <div class="nav-content">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-            <a class="nav-link" href="/">Features</a>
-            <a class="nav-link" href="/">Pricing</a>
-            <a class="nav-link" href="/">Disabled</a>
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" href="/">Features</a>
+                <a class="nav-link" href="/">Pricing</a>
+                <a class="nav-link" href="/">Disabled</a>
+            </div>
+            <button class="bg-info rounded-circle">Tombol</button>
         </div>
     </div>
 {/if}
@@ -44,21 +52,26 @@
         position: fixed;
         top: 0;
         right: 0;
-        width: 33.33vw; /* Sepertiga layar */
-        height: 50vh;
-        background: white;
-        box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.2);
+        width: 100%; /* Sepertiga layar */
+        height: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
+        justify-content: end;
+        z-index: 9;
+        background: rgba(0, 0, 0, 0.7);
     }
 
     .nav-content {
+        position: absolute;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: end;
         gap: 20px;
+        width: 80%;
+        height: 80%;
+        box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.2);
+        border-bottom-left-radius: 95%;
+        background: white;
+        z-index: 99;
     }
 
     .nav-link {
