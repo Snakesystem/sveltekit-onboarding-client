@@ -33,7 +33,7 @@
         </div>
         <div class="card border-0">
           <h3 class="fw-bold text-center">Masuk ke akun anda</h3>
-          <p class="text-login">
+          <p class="text-center">
             Masuk sekarang untuk teruskan langkah Anda di dunia trading
           </p>
           <div class="flex-row text-center mb-3">
@@ -60,6 +60,9 @@
             <button type="submit" class="btn btn-primary my-3 w-100 text-white" >Masuk</button >
             <span >Belum punya akun? <a href="/register" class="text-decoration-none">Daftar Sekarang</a ></span >
           </form>
+        </div>
+        <div class="text-center copyright">
+          <a target="_blank" href="https://github.com/snakesystem" class="text-decoration-none">Copyright &copy; 2022 Snakesystem</a>
         </div>
       </div>
     </div>
@@ -141,12 +144,14 @@
         .card {
           background-color: transparent;
           padding: 1rem;
-          h4 {
-            text-align: center;
-          }
-          p {
-            text-align: center;
-          }
+        }
+
+        .copyright {
+          position: absolute;
+          bottom: 2.5rem;
+          left: 0;
+          right: 0;
+          text-align: center;
         }
       }
     }

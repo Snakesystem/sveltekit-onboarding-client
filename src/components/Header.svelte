@@ -42,7 +42,10 @@
 
 <nav class="navbar shadow-sm mb-3 sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Logo</a>
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <img src="/svg/svelte.svg" alt="" style="width: 20px;">
+            <span class="fw-bold fs-6 ms-2">Snake Trading</span>
+        </a>
         {#if session}
         <button class="bg-primary rounded-circle" style="width: 40px; height: 40px;" onclick={toggleNav}>
             <span>
