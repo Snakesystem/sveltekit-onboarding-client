@@ -1,3 +1,84 @@
-
-
 @use 'modules/variable' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+.tab-content{
+    display: flex;
+    flex-direction: column;
+
+    .nav {
+        display: flex;
+        justify-content: center;
+        border-bottom: none;
+
+        .nav-item{
+            width: 45%;
+            text-align: center;
+        }
+
+        .active {
+            border: none;
+            border-radius: 0;
+            border-top: 4px solid $primary;
+            background-color: transparent;
+            color: #202020;
+            box-shadow: none;
+        }
+        
+    }
+}
+
+.accordion {
+    .accordion-item {
+        border: none;
+        border-radius: 0;
+        border-bottom: 0.4px solid $secondary;
+        background-color: transparent;
+        color: #202020;
+        box-shadow: none;
+
+        .accordion-button {
+            border: none;
+            border-radius: 0;
+            background-color: transparent;
+            color: #202020;
+            box-shadow: none;
+            padding: 5px 10px;
+
+            h5 {
+                font-size: 1rem;
+                font-weight: 550;
+                color: $warning;
+            }
+        }
+
+        ol {
+            margin-top: -10px;
+            margin-left: -10px;
+            margin-bottom: -10px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h4 {
+        font-size: 1.1rem;
+        font-weight: 550;
+    }
+
+    p, li, span, label, a {
+        font-size: 0.8rem;
+    }
+}

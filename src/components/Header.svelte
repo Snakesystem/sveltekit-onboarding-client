@@ -40,7 +40,7 @@
 
 </script>
 
-<nav class="navbar">
+<nav class="navbar shadow-sm mb-3 sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Logo</a>
         {#if session}
@@ -77,6 +77,11 @@
 {/if}
 
 <style scoped lang="scss">
+
+    .navbar {
+        background-color: white;
+    }
+
     .nav-menu {
         position: fixed;
         top: 0;
@@ -85,7 +90,7 @@
         height: 100%;
         display: flex;
         justify-content: end;
-        z-index: 9;
+        z-index: 9999;
         background: rgba(0, 0, 0, 0.7);
     }
 
@@ -99,7 +104,7 @@
         height: 70%;
         border-bottom-left-radius: 90%;
         background: linear-gradient(59deg, #f19e18 0%, #e62314 89%);
-        z-index: 99;
+        z-index: 9999;
     }
 
     .nav-link {

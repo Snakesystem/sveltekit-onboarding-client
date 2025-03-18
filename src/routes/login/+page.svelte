@@ -28,18 +28,17 @@
   <div class="row justify-content-center">
     <div class="col-lg-7 left-login">
       <div class="card-form-login">
-        <i class="logo-company"></i>
+        <div class="logo-company mt-3 text-center">
+          <img src="/svg/svelte.svg" alt="logo company" style="width: 3rem;">
+        </div>
         <div class="card border-0">
-          <h4 class="fw-bold">Masuk ke akun anda</h4>
+          <h3 class="fw-bold text-center">Masuk ke akun anda</h3>
           <p class="text-login">
             Masuk sekarang untuk teruskan langkah Anda di dunia trading
           </p>
           <div class="flex-row text-center mb-3">
             <LoginGoogleButton />
           </div>
-          <!-- <div class="flex-row text-center mb-3">
-            <LoginFacebookButton />
-          </div> -->
           <div class="d-flex flex-row text-center">
             <hr class="w-100" />
             <span class="mx-3">atau</span>
@@ -120,6 +119,44 @@
       img {
         position: absolute;
         bottom: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .container-fluid {
+      padding: 1.5rem;
+      z-index: -1;
+      background: linear-gradient(59deg, #f19e18 0%, #e62314 89%);
+    }
+
+    .left-login {
+      z-index: 2;
+      .card-form-login {
+        width: 100%;
+        margin: 0;
+        background-color: #FFF;
+        
+        .card {
+          background-color: transparent;
+          padding: 1rem;
+          h4 {
+            text-align: center;
+          }
+          p {
+            text-align: center;
+          }
+        }
+      }
+    }
+    .right-login {
+      position: absolute;
+      z-index: -1;
+      img {
+        bottom: 0;
+        left: 0;
+        width: 100%;
       }
     }
   }
