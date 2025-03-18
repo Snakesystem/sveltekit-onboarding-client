@@ -93,7 +93,7 @@
         width: 50%;
         height: 70%;
         border-bottom-left-radius: 90%;
-        background: linear-gradient(59deg, #2AF598 0%, #08AEEA 89%);
+        background: linear-gradient(59deg, #f19e18 0%, #e62314 89%);
         z-index: 99;
     }
 
@@ -113,11 +113,11 @@
         align-items: center;
         margin-left: 20rem;
         margin-bottom: 10rem;
-
         .nav-link {
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            color: #abc7df;
 
             &:hover {
                 color: #FFFFFF;

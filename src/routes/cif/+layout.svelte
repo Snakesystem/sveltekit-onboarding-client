@@ -38,6 +38,8 @@
             goto("/cif/data-pekerjaan");
         } else if(response.data.stage <= 4) {
             goto("/cif/data-pekerjaan");
+        } else {
+            goto("/login");
         }
 
         userInfo.set(response);

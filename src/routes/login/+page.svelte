@@ -1,6 +1,5 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import LoginFacebookButton from "../../components/LoginFacebookButton.svelte";
   import LoginGoogleButton from "../../components/LoginGoogleButton.svelte";
 
   const form = $state({ email: "", password: "" });
@@ -38,9 +37,9 @@
           <div class="flex-row text-center mb-3">
             <LoginGoogleButton />
           </div>
-          <div class="flex-row text-center mb-3">
+          <!-- <div class="flex-row text-center mb-3">
             <LoginFacebookButton />
-          </div>
+          </div> -->
           <div class="d-flex flex-row text-center">
             <hr class="w-100" />
             <span class="mx-3">atau</span>
@@ -58,7 +57,7 @@
               <label for="email" class="form-label">Password</label>
               <input type="password" class="form-control" id="password" bind:value={form.password}/>
             </div>
-            <a href="/forgot-password" class="text-decoration-none" >Lupa Password</a >
+            <a href="/forget-password" class="text-decoration-none" >Lupa Password</a >
             <button type="submit" class="btn btn-primary my-3 w-100 text-white" >Masuk</button >
             <span >Belum punya akun? <a href="/register" class="text-decoration-none">Daftar Sekarang</a ></span >
           </form>

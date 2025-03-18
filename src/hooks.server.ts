@@ -23,11 +23,17 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     // Redirect user jika mencoba akses halaman dilindungi tanpa login
-    const protectedRoutes = ['/', '/profile'];
+    const protectedRoutes = ['/', '/profile', '/cif', '/cif/data-pribadi', '/cif/data-pekerjaan', '/cif/data-bank', '/cif/data-pendukung'];
+    const publicRoutes = ['/login', '/register', '/forget-password' ];
     if (protectedRoutes.includes(event.url.pathname) && !event.locals.session) {
         return new Response(null, {
             status: 303,
             headers: { location: '/login' }
+        });
+    } else if (publicRoutes.includes(event.url.pathname) && event.locals.session) {
+        return new Response(null, {
+            status: 303,
+            headers: { location: '/' }
         });
     }
 
