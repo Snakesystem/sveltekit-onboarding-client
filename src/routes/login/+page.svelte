@@ -91,7 +91,7 @@
 
   .right-login {
     height: 100vh;
-    background: linear-gradient(59deg, #2AF598 0%, #08AEEA 89%);
+    background: linear-gradient(59deg, #f19e18 0%, #e62314 89%);
 
     .bacground-login {
       height: 100vh;

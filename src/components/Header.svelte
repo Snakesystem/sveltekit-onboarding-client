@@ -4,7 +4,7 @@
     import { cubicOut } from "svelte/easing";
     import { tweened } from "svelte/motion";
 
-    const {session} = $props();
+    const { session } = $props();
 
     let showNav = $state(false);
     let navPosition = tweened({ x: 100, y: -100, opacity: 0 }, { duration: 400, easing: cubicOut });
@@ -43,6 +43,7 @@
 <nav class="navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Logo</a>
+        {#if session}
         <button class="bg-primary rounded-circle" style="width: 40px; height: 40px;" onclick={toggleNav}>
             <span>
                 {#if session?.picture}
@@ -52,6 +53,10 @@
                 {/if}
             </span>
         </button>
+        {:else}
+            <!-- svelte-ignore a11y_consider_explicit_label -->
+            <button onclick={toggleNav} class="navbar-toggler-icon me-3 btn"></button>
+        {/if}
     </div>
 </nav>
 

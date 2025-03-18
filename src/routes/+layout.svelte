@@ -30,9 +30,11 @@
       return res.json();
     } else {
       is_authenticated = false;
-      goto("/login", { replaceState: true });
       return res.json()
     }
+  }).catch((err) => {
+    loading = false;
+    is_authenticated = false;
   })
   }
 
