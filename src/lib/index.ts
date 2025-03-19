@@ -151,3 +151,83 @@ export function createSession(sessionToken: string, id: any) {
 export function setSessionTokenCookie(event: RequestEvent<Partial<Record<string, string>>, string | null>, sessionToken: string, expiresAt: any) {
     document.cookie = `session_token=${sessionToken}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict; Secure; HttpOnly; SameSite=None;`;
 }
+
+export function validPassword(node: HTMLInputElement) {
+    const errorMessage = document.createElement("div");
+    errorMessage.className = "invalid-feedback";
+  
+    function inputHandler() {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+        if (regex.test(node.value)) {
+            node.classList.remove("is-invalid");
+            errorMessage.textContent = "";
+        } else {
+            node.classList.add("is-invalid");
+            errorMessage.textContent = "Password minimal 8 karakter, terdiri dari huruf besar, huruf kecil, dan angka!";
+            node.parentNode?.appendChild(errorMessage);
+        }
+    }
+  
+    node.addEventListener("input", inputHandler);
+  
+    return {
+      destroy() {
+        node.removeEventListener("input", inputHandler);
+        errorMessage.remove();
+      },
+    };
+}
+
+export function confirmPassword(node: HTMLInputElement, { password }: { password: string }) {
+    const errorMessage = document.createElement("div");
+    errorMessage.className = "invalid-feedback";
+
+    function inputHandler() {
+        if (node.value && node.value !== password) {
+            node.classList.add("is-invalid");
+            errorMessage.textContent = "Password tidak cocok!";
+            node.parentNode?.appendChild(errorMessage);
+        } else {
+            node.classList.remove("is-invalid");
+            errorMessage.textContent = "";
+        }
+    }
+
+    node.addEventListener("input", inputHandler);
+
+    return {
+        update({ password: newPassword }: { password: string }) {
+            password = newPassword;
+        },
+        destroy() {
+            node.removeEventListener("input", inputHandler);
+            errorMessage.remove();
+        }
+    };
+}
+
+export function validPhone(node: HTMLInputElement) {
+    const errorMessage = document.createElement("div");
+    errorMessage.className = "invalid-feedback";
+
+    function inputHandler() {
+        if (!node.value.startsWith("62")) {
+            node.classList.add("is-invalid");
+            errorMessage.textContent = "Nomor telepon harus diawali dengan 62!";
+            node.parentNode?.appendChild(errorMessage);
+        } else {
+            node.classList.remove("is-invalid");
+            errorMessage.textContent = "";
+        }
+    }
+
+    node.addEventListener("input", inputHandler);
+
+    return {
+        destroy() {
+            node.removeEventListener("input", inputHandler);
+            errorMessage.remove();
+        }
+    };
+}

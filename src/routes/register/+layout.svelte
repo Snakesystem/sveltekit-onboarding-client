@@ -7,7 +7,7 @@
 </script>
 
 <MainContext data={data}>
-    <div class="card">
+    <div class="card container">
         <TabContent pills>
             <TabPane tabId="faq" tab="Faq" active>
               <div class="card m-3">

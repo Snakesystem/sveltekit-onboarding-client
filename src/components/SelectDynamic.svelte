@@ -1,14 +1,20 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  const { viewData, placeholder, code = "", description = "" } = $props<{
+  const { viewData, placeholder, code = "", description = "", onChange, required=false } = $props<{
     viewData: string;
     placeholder: string;
     code?: string;
     description?: string;
+    onChange?: (value: string) => void;
+    required?: boolean;
   }>();
   let options: { data_id: number; code: string; description: string }[] = $state([]);
   let selectedValue: string = $state("");
+
+  $effect(() => {
+    onChange(selectedValue);
+  });
 
   // Fetch data dari API saat komponen dipasang
   onMount(async () => {
@@ -25,9 +31,10 @@
       console.error("Error fetching options:", error);
     }
   });
+
 </script>
 
-<select class="form-select" bind:value={selectedValue}>
+<select class="form-select" bind:value={selectedValue} {required}>
   <option value="">{placeholder}</option>
   {#each options as option}
     <option value={option.data_id}>{option.description}</option>
