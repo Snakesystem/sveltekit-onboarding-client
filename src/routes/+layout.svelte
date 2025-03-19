@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { goto, afterNavigate } from "$app/navigation";
+  // import { goto, afterNavigate } from "$app/navigation";
   import { getStores } from "$app/stores";
   import '../assets/css/style.css';
   import '../assets/scss/style.scss';
@@ -8,12 +8,10 @@
 
   let pathname: string = "";
   let loading = false;
+  const { page } = getStores();
   export let data;
   let is_authenticated = data.is_authenticated;
-  const url_authorized = ["/", "/profile", "/*"];
-  const url_unauthorized = ["/login", "/register", "/*"];
-
-  const { page } = getStores();
+  
   pathname = $page.route.id || "";
 
   const checkSession = async () => {
@@ -24,34 +22,38 @@
       headers: {
         "Content-Type": "application/json",
       },
-  }).then((res: any) => {
-    loading = false;
-    if (res.ok) {
-      return res.json();
-    } else {
+    }).then((res: any) => {
+      loading = false;
+      if (res.ok) {
+        return res.json();
+      } else {
+        is_authenticated = false;
+        return res.json()
+      }
+    }).catch((err) => {
+      loading = false;
       is_authenticated = false;
-      return res.json()
-    }
-  }).catch((err) => {
-    loading = false;
-    is_authenticated = false;
-  })
+    })
   }
 
   onMount(() => {
     checkSession();
-    afterNavigate(() => {
-      if (!is_authenticated && url_authorized.includes(pathname)) {
-        if (!url_unauthorized.includes(pathname)) {
-          goto(pathname, { replaceState: true });
-        }
-      } else if ( is_authenticated && url_unauthorized.includes(pathname)) {
-        goto("/", { replaceState: true });
-      }
-    });
-    if (is_authenticated && url_unauthorized.includes(pathname)) {
-      goto("/", { replaceState: true });
-    } 
+    // afterNavigate(() => {
+    //   if (!is_authenticated && url_authorized.includes(pathname)) {
+    //     console.log('object 1')
+    //     if (!url_unauthorized.includes(pathname)) {
+    //       console.log('object 2')
+    //       goto(pathname, { replaceState: true });
+    //     }
+    //   } else if ( is_authenticated && url_unauthorized.includes(pathname)) {
+    //     console.log('object 3')
+    //     goto("/", { replaceState: true });
+    //   }
+    // });
+    // if(is_authenticated && url_unauthorized.includes(pathname)) {
+    //   console.log('object 4')
+    //   goto("/", { replaceState: true });
+    // } 
   });
 </script>
 

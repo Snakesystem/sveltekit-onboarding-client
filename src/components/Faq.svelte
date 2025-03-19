@@ -44,7 +44,7 @@
   </AccordionItem>
   <AccordionItem>
     <h5 class="m-0" slot="header">Beberapa lama proses pembukaan rekening efek di Sekuritas?</h5>
-    <ol>Pembukaan rekening efek membutuhkan waktu maksimum 2 hari kerja dengan tahapan sebagai berikut:
+    <ol><span class="fw-bold">Pembukaan rekening efek membutuhkan waktu maksimum 2 hari kerja dengan tahapan sebagai berikut:</span>
         <li>Apabila data sudah lengkap dan sesuai dengan persyaratan, pengajuan akan disetujui oleh Customer Service Example Sekuritas.</li>
         <li>Setelah disetujui oleh Customer Service Example Sekuritas, data Nasabah akan dikirimkan ke pihak terkait (KSEI dan Bank RDN).</li>
         <li>Setelah mendapatkan Rekening Dana Nasabah(RDN) dan Sub Rekening Efek (SRE), Anda dapat segera melakukan transaksi.</li>
@@ -52,7 +52,7 @@
   </AccordionItem>
   <AccordionItem>
     <h5 class="m-0" slot="header">Bagaimana cara menghubungi Sekuritas?</h5>
-    <ol>Anda dapat menghubungi Example Sekuritas melalui:
+    <ol><span class="fw-bold">Anda dapat menghubungi Example Sekuritas melalui:</span>
         <li>Kantor Pusat: 082323443535</li>
         <li>Helpdesk: 082323443535</li>
         <li>Fax: 082323443535</li>

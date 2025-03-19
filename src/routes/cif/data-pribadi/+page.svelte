@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { userInfo } from "$lib/index.js";
+    import { goto } from "$app/navigation";
+    import { userInfo } from "$lib/index.js";
+    import { fly } from "svelte/transition";
 
     let data = $state($userInfo.data);
 
 </script>
 
-<form class="mt-2" onsubmit={(e) => {e.preventDefault()}}>
+<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 100, duration: 200 }}>
     <div class="cif-content">
         <h4 class="fw-semibold">Personal Information</h4>
-        <p>Ini datamu sendiri</p>
+        <p>Isi datamu sendiri</p>
         <div class="row">
             <div class="col-12 col-lg-6 mb-3">
                 <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
@@ -29,7 +31,7 @@
         </div>
     </div>
     <div class="nav-button d-flex justify-content-between my-3">
-        <button type="button" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-left"></i> Kembali</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick={() => goto("/forget-password")}><i class="bi bi-arrow-left"></i> Kembali</button>
         <button type="submit" class="btn btn-primary btn-sm text-white">Selanjutnya <i class="bi bi-arrow-right"></i></button>
     </div>
 </form>
@@ -44,4 +46,3 @@
         overflow-y: auto;
     }
 </style>
-

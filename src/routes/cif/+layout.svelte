@@ -12,8 +12,6 @@
     let loading = false;
     const { page } = getStores();
 
-    console.log('df',$page.url.pathname.substr($page.url.pathname.lastIndexOf('/')));
-
     const isActive = (path: string) => {
         return path === $page.url.pathname;
     }
@@ -38,17 +36,17 @@
             console.log(err)
         });
 
-        // if(response.data.stage === 1) {
-        //     goto("/cif/data-pribadi");
-        // } else if(response.data.stage <= 2) {
-        //     goto("/cif/data-bank");
-        // } else if(response.data.stage <= 3) {
-        //     goto("/cif/data-pekerjaan");
-        // } else if(response.data.stage <= 4) {
-        //     goto("/cif/data-pekerjaan");
-        // } else {
-        //     goto("/login");
-        // }
+        if(response.data.stage === 1) {
+            goto("/cif/data-pribadi");
+        } else if(response.data.stage <= 2) {
+            goto("/cif/data-bank");
+        } else if(response.data.stage <= 3) {
+            goto("/cif/data-pekerjaan");
+        } else if(response.data.stage <= 4) {
+            goto("/cif/data-pekerjaan");
+        } else {
+            goto("/login");
+        }
         loading = false;
         userInfo.set(response);
     }
