@@ -83,6 +83,8 @@
 
     .navbar {
         background-color: white;
+        width: 100%;
+        margin: 0;
     }
 
     .nav-menu {
