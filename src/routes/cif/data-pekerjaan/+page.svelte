@@ -1,21 +1,19 @@
 <script lang="ts">
     import { userInfo } from "$lib/index.js";
     import { fly } from "svelte/transition";
-    import { getContext, onMount } from "svelte";
+    import { getContext } from "svelte";
 
     let data = $state($userInfo.data);
 
     const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
 
-    onMount(() => {
-        if($userInfo.data.stage < 3) {
-            getUserInfo();
-        }
-    })
+    if($userInfo.data.stage < 3) {
+        getUserInfo();
+    }
 
 </script>
 
-<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 100, duration: 200 }}>
+<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 1000, duration: 200 }}>
     <div class="cif-content">
         <h4 class="fw-semibold">Job Information</h4>
         <p>Ini datamu sendiri</p>

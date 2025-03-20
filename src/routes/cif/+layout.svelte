@@ -67,59 +67,59 @@
 
 </script>
 
-{#if loading}
-    <Loading />
-{:else}
-    <div transition:fade={{ delay: 0, duration: 200 }}>
-        <Header session={data.session} />
-    </div>
-    <div transition:fly={{ opacity: 0, x: 100, duration: 200 }} class="container">
-        <nav class="navbar">
-            <div class="navbar-nav">
-                <a class="nav-link {$userInfo.data.stage === 1 || $userInfo.data.stage > 1 ? 'active-stage' : ''} {isActive('/cif/data-pribadi') ? 'active' : ''}" 
-                    href="/cif/data-pribadi">
-                    {#if $userInfo.data.stage === 1 || $userInfo.data.stage > 1}
-                        <i class="bi bi-check-lg fs-1 fw-bold"></i>
-                    {:else}
-                        <i class="bi bi-person-fill"></i>
-                    {/if}
-                    <span>Personal Data</span>
-                </a>
-                <a class="nav-link {$userInfo.data.stage === 2 || $userInfo.data.stage > 2 ? 'active-stage' : ''} {isActive('/cif/data-bank') ? 'active' : ''}" 
-                    href="/cif/data-bank">
-                    {#if $userInfo.data.stage === 2 || $userInfo.data.stage > 2}
-                        <i class="bi bi-check-lg fs-1 fw-bold"></i>
-                    {:else}
-                        <i class="bi bi-bank"></i>
-                    {/if}
-                    <span>Bank Information</span>
-                </a>
-                <a class="nav-link {$userInfo.data.stage === 3 || $userInfo.data.stage > 3 ? 'active-stage' : ''} {isActive('/cif/data-pekerjaan') ? 'active' : ''}" 
-                    href="/cif/data-pekerjaan">
-                    {#if $userInfo.data.stage === 3 || $userInfo.data.stage > 3}
-                        <i class="bi bi-check-lg fs-1 fw-bold"></i>
-                    {:else}
-                        <i class="bi bi-briefcase-fill"></i>
-                    {/if}
-                    <span>Job Information</span>
-                </a>
-                <a class="nav-link {$userInfo.data.stage === 4 || $userInfo.data.stage > 4 ? 'active-stage' : ''} {isActive('/cif/data-pendukung') ? 'active' : ''}" 
-                    href="/cif/data-pendukung">
-                    {#if $userInfo.data.stage === 4 || $userInfo.data.stage > 4}
-                        <i class="bi bi-check-lg fs-1 fw-bold"></i>
-                    {:else}
-                        <i class="bi bi-images"></i>
-                    {/if}
-                    <span>Document</span>
-                </a>
-            </div>
-            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow={$userInfo.data.stage * 10} aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar" style="width: {$userInfo.data.stage * 10}%"></div>
-            </div>
-        </nav>
+<div transition:fade={{ delay: 0, duration: 200 }}>
+    <Header session={data.session} />
+</div>
+<div transition:fly={{ opacity: 0, x: 100, duration: 200 }} class="container">
+    <nav class="navbar">
+        <div class="navbar-nav">
+            <a class="nav-link {$userInfo.data.stage === 1 || $userInfo.data.stage > 1 ? 'active-stage' : ''} {isActive('/cif/data-pribadi') ? 'active' : ''}" 
+                href="/cif/data-pribadi">
+                {#if $userInfo.data.stage === 1 || $userInfo.data.stage > 1}
+                    <i class="bi bi-check-lg fs-1 fw-bold"></i>
+                {:else}
+                    <i class="bi bi-person-fill"></i>
+                {/if}
+                <span>Personal Data</span>
+            </a>
+            <a class="nav-link {$userInfo.data.stage === 2 || $userInfo.data.stage > 2 ? 'active-stage' : ''} {isActive('/cif/data-bank') ? 'active' : ''}" 
+                href="/cif/data-bank">
+                {#if $userInfo.data.stage === 2 || $userInfo.data.stage > 2}
+                    <i class="bi bi-check-lg fs-1 fw-bold"></i>
+                {:else}
+                    <i class="bi bi-bank"></i>
+                {/if}
+                <span>Bank Information</span>
+            </a>
+            <a class="nav-link {$userInfo.data.stage === 3 || $userInfo.data.stage > 3 ? 'active-stage' : ''} {isActive('/cif/data-pekerjaan') ? 'active' : ''}" 
+                href="/cif/data-pekerjaan">
+                {#if $userInfo.data.stage === 3 || $userInfo.data.stage > 3}
+                    <i class="bi bi-check-lg fs-1 fw-bold"></i>
+                {:else}
+                    <i class="bi bi-briefcase-fill"></i>
+                {/if}
+                <span>Job Information</span>
+            </a>
+            <a class="nav-link {$userInfo.data.stage === 4 || $userInfo.data.stage > 4 ? 'active-stage' : ''} {isActive('/cif/data-pendukung') ? 'active' : ''}" 
+                href="/cif/data-pendukung">
+                {#if $userInfo.data.stage === 4 || $userInfo.data.stage > 4}
+                    <i class="bi bi-check-lg fs-1 fw-bold"></i>
+                {:else}
+                    <i class="bi bi-images"></i>
+                {/if}
+                <span>Document</span>
+            </a>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow={$userInfo.data.stage * 20} aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" style="width: {$userInfo.data.stage * 20}%"></div>
+        </div>
+    </nav>
+    {#if loading}
+        <h1 class="text-center mt-5">Loading.......</h1>
+    {:else}
         <slot />
-    </div>
-{/if}
+    {/if}
+</div>
 
 <style lang="scss" scoped>
     .navbar {
@@ -149,7 +149,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            background-color: #dce3e9;
+            width: 6rem;
+            height: 6rem;
             border-radius: 50%;
+            i {
+                font-size: 2rem;
+            }
+
+            span {
+                position: absolute;
+                bottom: 0;
+            }
         }
     }
 

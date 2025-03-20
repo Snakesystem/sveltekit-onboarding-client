@@ -7,7 +7,7 @@
 
 </script>
 
-<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 100, duration: 200 }}>
+<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 1000, duration: 500 }}>
     <div class="cif-content">
         <h4 class="fw-semibold">Personal Information</h4>
         <p>Isi datamu sendiri</p>

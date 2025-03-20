@@ -3,8 +3,8 @@
     import { Circle3 } from 'svelte-loading-spinners';
 </script>
 
-<div transition:fade={{ duration: 100 }} class="loading">
-    <Circle3 size="50" unit="px" duration="1s" />
+<div transition:fade={{ duration: 100, delay: 0 }} class="loading">
+    <Circle3 size="100" unit="px" duration="1s" />
     <h1>Loading.....</h1>
 </div>
 

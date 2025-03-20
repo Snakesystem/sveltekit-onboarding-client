@@ -1,21 +1,19 @@
 <script lang="ts">
     import { userInfo } from "$lib/index.js";
     import { fly } from "svelte/transition";
-    import { getContext, onMount } from "svelte";
+    import { getContext } from "svelte";
 
     const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
 
-    onMount(() => {
-        if($userInfo.data.stage < 2) {
-            getUserInfo();
-        }
-    })
+    if($userInfo.data.stage < 2) {
+        getUserInfo();
+    }
 
     let data = $state($userInfo.data);
 
 </script>
 
-<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 100, duration: 200 }}>
+<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 1000, duration: 200 }} >
     <div class="cif-content">
         <h4 class="fw-semibold">Bank Account Information</h4>
         <p>Ini datamu sendiri</p>
@@ -45,6 +43,10 @@
 </form>
 
 <style lang="scss" scoped>
+
+    form {
+        transition: all 0.3s ease-in-out;
+    }
     .cif-content  {
         max-height: 75vh;
         width: 100%;
