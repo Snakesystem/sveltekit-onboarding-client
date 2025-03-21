@@ -1,6 +1,7 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { formatDate, userInfo } from "$lib/index.js";
+  import AutoComplete from "../../../components/AutoComplete.svelte";
     import SelectDynamic from "../../../components/SelectDynamic.svelte";
 
     let data = $state($userInfo.data);
@@ -10,6 +11,7 @@
 
     $effect(() => {
         data.birth_date = formatDate(data.birth_date);
+        data.idcard_expire_date = formatDate(data.idcard_expire_date);
     })
 
     function changeGender(e: any) {
@@ -31,6 +33,11 @@
 
     function changeReligion(e: any) {
         data.sex = e;
+    }
+
+    function changeCity(e: any) {
+        console.log('object', e)
+        data.idcard_city = e;
     }
 
 </script>
@@ -86,7 +93,7 @@
             </div>
             <div class="col-12 col-lg-3 mb-3">
                 <label for="marital_status" class="form-label">Marital Status <span class="text-danger">*</span></label>
-                <SelectDynamic viewData="marital_status" placeholder="Pilih jenis kelamin" onChange={changeMaritalStatus} required />
+                <SelectDynamic viewData="maritalstatus" placeholder="Pilih jenis kelamin" onChange={changeMaritalStatus} required />
             </div>
             <div class="col-12 col-lg-3 mb-3">
                 <label for="education" class="form-label">Education <span class="text-danger">*</span></label>
@@ -98,6 +105,19 @@
                     <input type="text" class="form-control" id="education_text" bind:value={data.education_text} required>
                 </div>
             {/if}
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="idcard_expire_date" class="form-label">IDCard Expire Date <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="idcard_expire_date" bind:value={data.idcard_expire_date} required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="idcard_country" class="form-label">IDCard Country <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="idcard_country" bind:value={data.idcard_country} required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="idcard_country" class="form-label">IDCard Country <span class="text-danger">*</span></label>
+                <AutoComplete placeholder="Cari kota..." onChange={changeCity} />
+            </div>
+            {data.idcard_city}
         </div>
     </div>
     <div class="nav-button d-flex justify-content-between my-3">
