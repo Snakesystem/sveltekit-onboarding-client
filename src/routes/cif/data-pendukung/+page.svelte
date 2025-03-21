@@ -14,7 +14,7 @@
 
 </script>
 
-<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 1, x: 1000, duration: 200 }}>
+<form class="mt-2" onsubmit={(e) => {e.preventDefault()}}>
     <div class="cif-content">
         <h4 class="fw-semibold">Supporting documents</h4>
         <p>Ini datamu sendiri</p>

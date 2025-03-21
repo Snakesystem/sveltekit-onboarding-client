@@ -1,13 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  const { viewData, placeholder, code = "", description = "", onChange, required=false } = $props<{
+  const { viewData, placeholder, code = "", description = "", onChange, required=false, disabled=false } = $props<{
     viewData: string;
     placeholder: string;
     code?: string;
     description?: string;
     onChange?: (value: string) => void;
     required?: boolean;
+    disabled?: boolean;
   }>();
   let options: { data_id: number; code: string; description: string }[] = $state([]);
   let selectedValue: string = $state("");
@@ -19,7 +20,13 @@
   // Fetch data dari API saat komponen dipasang
   onMount(async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/option/${viewData}`);
+      const res = await fetch(`http://localhost:8000/api/v1/option/${viewData}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const json = await res.json();
 
       if (json.result) {
@@ -34,7 +41,7 @@
 
 </script>
 
-<select class="form-select" bind:value={selectedValue} {required}>
+<select class="form-select" bind:value={selectedValue} {required} {disabled}>
   <option value="">{placeholder}</option>
   {#each options as option}
     <option value={option.data_id}>{option.description}</option>

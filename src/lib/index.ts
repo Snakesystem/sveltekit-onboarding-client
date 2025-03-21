@@ -29,6 +29,7 @@ export const userInfoData = {
     religion: 0,
     marital_status: 0,
     education: 0,
+    education_text: "",
     idcard_city: 0,
     idcard_district: "",
     idcard_subdistrict: "",
@@ -231,3 +232,7 @@ export function validPhone(node: HTMLInputElement) {
         }
     };
 }
+
+export function formatDate(datetime: string) {
+    return datetime.split(" ")[0]; // Ambil hanya YYYY-MM-DD
+  }

@@ -70,7 +70,7 @@
 <div transition:fade={{ delay: 0, duration: 200 }}>
     <Header session={data.session} />
 </div>
-<div transition:fly={{ opacity: 0, x: 100, duration: 200 }} class="container">
+<div class="container">
     <nav class="navbar">
         <div class="navbar-nav">
             <a class="nav-link {$userInfo.data.stage === 1 || $userInfo.data.stage > 1 ? 'active-stage' : ''} {isActive('/cif/data-pribadi') ? 'active' : ''}" 
@@ -115,9 +115,11 @@
         </div>
     </nav>
     {#if loading}
-        <h1 class="text-center mt-5">Loading.......</h1>
+        <h1 class="text-center">Loading.......</h1>
     {:else}
-        <slot />
+        <div class="mt-3" transition:fly={{ opacity: 0, x: 1000, duration: 500 }}>
+            <slot />
+        </div>
     {/if}
 </div>
 
@@ -151,8 +153,8 @@
             align-items: center;
             justify-content: center;
             background-color: #dce3e9;
-            width: 6rem;
-            height: 6rem;
+            width: 5.4rem;
+            height: 5.4rem;
             border-radius: 50%;
             i {
                 font-size: 2rem;
@@ -160,7 +162,21 @@
 
             span {
                 position: absolute;
-                bottom: 0;
+                bottom: -1rem;
+                font-size: 1rem;
+                color: #202020;
+            }
+
+            &.active-stage {
+                border: 3px solid #e4461e;
+                color: #e4461e;
+                background-color: #FFF;
+            }
+
+            &.active {
+                background-color: #e4461e;
+                border: 3px solid #ffa807;
+                color: #FFF;
             }
         }
     }
@@ -175,21 +191,18 @@
             flex-direction: column;
             justify-content: center;
             background-color: #dce3e9;
-            width: 50px;
-            height: 50px;
+            width: 50px !important;
+            height: 50px !important;
             border: 3px solid #FFF;
             color: #FFF;
 
-            &.active-stage {
-                border: 3px solid #e4461e;
-                color: #e4461e;
-                background-color: #FFF;
-            }
+            i {
+                font-size: 1rem !important;
 
-            &.active {
-                background-color: #e4461e;
-                border: 3px solid #ffa807;
-                color: #FFF;
+                &.bi-check-lg {
+                    font-size: 1.5rem !important;
+                    font-weight: 900 !important;
+                }
             }
         }
 

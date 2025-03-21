@@ -1,13 +1,41 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { userInfo } from "$lib/index.js";
-    import { fly } from "svelte/transition";
+    import { formatDate, userInfo } from "$lib/index.js";
+    import SelectDynamic from "../../../components/SelectDynamic.svelte";
 
     let data = $state($userInfo.data);
+    let changeIf = $state({
+        education: 0,
+    });
+
+    $effect(() => {
+        data.birth_date = formatDate(data.birth_date);
+    })
+
+    function changeGender(e: any) {
+        data.sex = e;
+    }
+    
+    function changeNationality(e: any) {
+        data.sex = e;
+    }
+
+    function changeMaritalStatus(e: any) {
+        data.sex = e;
+    }
+
+    function changeEducation(e: any) {
+        data.sex = e;
+        changeIf.education = e;
+    }
+
+    function changeReligion(e: any) {
+        data.sex = e;
+    }
 
 </script>
 
-<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} transition:fly={{ opacity: 0, x: 1000, duration: 500 }}>
+<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} >
     <div class="cif-content">
         <h4 class="fw-semibold">Personal Information</h4>
         <p>Isi datamu sendiri</p>
@@ -25,9 +53,51 @@
                 <input type="tel" class="form-control" id="mobile_phone" bind:value={data.mobile_phone} required>
             </div>
             <div class="col-12 col-lg-6 mb-3">
+                <label for="mother_name" class="form-label">Mother Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="mother_name" bind:value={data.mother_name} required>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="idcard_number" class="form-label">ID Card Number <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="idcard_number" bind:value={data.idcard_number} required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="birth_place" class="form-label">Place of Birth <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="birth_place" bind:value={data.birth_place} required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
                 <label for="birth_date" class="form-label">Date of Birth <span class="text-danger">*</span></label>
                 <input type="date" class="form-control" id="birth_date" bind:value={data.birth_date} required>
             </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="nationality" class="form-label">Nationality <span class="text-danger">*</span></label>
+                <SelectDynamic viewData="nationality" placeholder="Pilih kebangsaan" onChange={changeNationality} required />
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="gender" class="form-label">Gender <span class="text-danger">*</span></label>
+                <SelectDynamic viewData="gender" placeholder="Pilih jenis kelamin" onChange={changeGender} required />
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="birth_country" class="form-label">Country of Birth <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="birth_country" bind:value={data.birth_country} required>
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="religion" class="form-label">Religion <span class="text-danger">*</span></label>
+                <SelectDynamic viewData="religion" placeholder="Pilih jenis kelamin" onChange={changeReligion} required />
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="marital_status" class="form-label">Marital Status <span class="text-danger">*</span></label>
+                <SelectDynamic viewData="marital_status" placeholder="Pilih jenis kelamin" onChange={changeMaritalStatus} required />
+            </div>
+            <div class="col-12 col-lg-3 mb-3">
+                <label for="education" class="form-label">Education <span class="text-danger">*</span></label>
+                <SelectDynamic viewData="education" placeholder="Pilih jenis kelamin" onChange={changeEducation} required/>
+            </div>
+            {#if changeIf.education === 1}
+                <div class="col-12 col-lg-3 mb-3">
+                    <label for="education_text" class="form-label">Other Education <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="education_text" bind:value={data.education_text} required>
+                </div>
+            {/if}
         </div>
     </div>
     <div class="nav-button d-flex justify-content-between my-3">
