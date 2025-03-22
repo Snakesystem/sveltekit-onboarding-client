@@ -1,8 +1,15 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
-    import { formatDate, userInfo } from "$lib/index.js";
-  import AutoComplete from "../../../components/AutoComplete.svelte";
+    import { formatDate, userInfo, userInfoData } from "$lib/index.js";
+    import { getContext } from "svelte";
+    import AutoComplete from "../../../components/AutoComplete.svelte";
     import SelectDynamic from "../../../components/SelectDynamic.svelte";
+
+    const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
+
+    $effect(() => {
+        getUserInfo();
+    })
 
     let data = $state($userInfo.data);
     let changeIf = $state({
@@ -117,7 +124,6 @@
                 <label for="idcard_country" class="form-label">IDCard Country <span class="text-danger">*</span></label>
                 <AutoComplete placeholder="Cari kota..." onChange={changeCity} />
             </div>
-            {data.idcard_city}
         </div>
     </div>
     <div class="nav-button d-flex justify-content-between my-3">
