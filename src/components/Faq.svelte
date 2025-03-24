@@ -21,7 +21,7 @@
     </li>
   </ol>
   <h4>Frequently Asked Question (Pertanyaan umum)</h4>
-  <AccordionItem>
+  <AccordionItem >
     <h5 class="m-0" slot="header">Bagaimana cara membuka rekening efek RDN di Sekuritas?</h5>
     <ol>
       <li>Buka link https://example.com melalui PC, Android maupun iPhone (Catatan: Gunakan mobile browser Chrome untuk koneksi yang lebih stabil).</li>

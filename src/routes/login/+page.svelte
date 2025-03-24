@@ -89,7 +89,15 @@
 
     .card-form-login {
       margin: auto;
+
+      .copyright {
+        position: absolute; 
+        bottom: 1rem;
+        left: 0;
+        width: 60%;
+      }
     }
+
   }
 
   .right-login {
@@ -151,8 +159,7 @@
           position: absolute;
           bottom: 2.5rem;
           left: 0;
-          right: 0;
-          text-align: center;
+          width: 100%;
         }
       }
     }

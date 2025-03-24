@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // Reexport your entry components here
 import { writable } from "svelte/store";
-export const baseUrl = "http://localhost";
+export const baseUrl = "http://localhost:8000";
 
 export const userInfoData = {
     autonid: 0,
@@ -141,7 +139,7 @@ export function generateSessionToken(): string {
     return token;
 }
 
-export function createSession(sessionToken: string, id: any) {
+export function createSession(sessionToken: string) {
     const session = {
         session_token: sessionToken,
         created_at: new Date().toISOString(),
@@ -150,7 +148,7 @@ export function createSession(sessionToken: string, id: any) {
     return session;
 }
 
-export function setSessionTokenCookie(event: RequestEvent<Partial<Record<string, string>>, string | null>, sessionToken: string, expiresAt: any) {
+export function setSessionTokenCookie(event: RequestEvent<Partial<Record<string, string>>, string | null>, sessionToken: string) {
     document.cookie = `session_token=${sessionToken}; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict; Secure; HttpOnly; SameSite=None;`;
 }
 

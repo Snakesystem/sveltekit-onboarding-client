@@ -6,7 +6,8 @@
     let dirty = $state({
         idcard_file: false,
         selfie_file: false,
-        signature_file: false
+        signature_file: false,
+        is_updated: false
     });
 
     async function saveCIFFile() {
@@ -16,7 +17,12 @@
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+                idcard_file: data.idcard_file,
+                selfie_file: data.selfie_file,
+                signature_file: data.signature_file,
+                is_updated: dirty.is_updated
+            })
         }).then((res: any) => {
             if (res.ok) {
                 return res.json();
@@ -50,6 +56,7 @@
                             on:change={(e) => {
                                 data.idcard_file = e.detail.value;
                                 dirty.idcard_file = true;
+                                dirty.is_updated = true;
                             }}>
                         </UploadFileField>
                     </div>
@@ -69,6 +76,7 @@
                             on:change={(e) => {
                                 data.selfie_file = e.detail.value;
                                 dirty.selfie_file = true;
+                                dirty.is_updated = true;
                             }}>
                         </UploadFileField>
                     </div>
@@ -88,6 +96,7 @@
                             on:change={(e) => {
                                 data.signature_file = e.detail.value;
                                 dirty.signature_file = true;
+                                dirty.is_updated = true;
                             }}>
                         </UploadFileField>
                     </div>
