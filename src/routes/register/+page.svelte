@@ -1,6 +1,6 @@
 <script>
   import { goto } from "$app/navigation";
-  import { confirmPassword, validPassword, validPhone } from "$lib/index.js";
+  import { baseUrl, confirmPassword, validPassword, validPhone } from "$lib/index.js";
   import SelectDynamic from "../../components/SelectDynamic.svelte";
 
   let data = $state({
@@ -38,7 +38,7 @@
 
   // @ts-ignore
   async function register(data) {
-    const res = await fetch("http://localhost:8000/api/v1/auth/register", {
+    const res = await fetch(`${baseUrl}/api/v1/auth/register`, {
       method: "POST",
       credentials: "include",
       headers: {

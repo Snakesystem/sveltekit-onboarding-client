@@ -1,4 +1,5 @@
 <script>
+  import { baseUrl } from "$lib/index.js";
   import MainContext from "../../components/MainContext.svelte";
 
   let email = $state("")
@@ -12,7 +13,7 @@
   // @ts-ignore
   async function forgetPassword() {
     result.message = "Processing...";
-    const res = await fetch("http://localhost:8000/api/v1/auth/reset-password", {
+    const res = await fetch(`${baseUrl}/api/v1/auth/reset-password`, {
       method: "POST",
       credentials: "include",
       headers: {

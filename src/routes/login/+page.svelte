@@ -1,11 +1,12 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { baseUrl } from "$lib/index.js";
   import LoginGoogleButton from "../../components/LoginGoogleButton.svelte";
 
   const form = $state({ email: "", password: "" });
 
   async function login() {
-    const res = await fetch("http://localhost:8000/api/v1/auth/login", {
+    const res = await fetch(`${baseUrl}/api/v1/auth/login`, {
       method: "POST",
       credentials: "include",
       headers: {

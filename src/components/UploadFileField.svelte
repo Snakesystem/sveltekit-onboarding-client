@@ -62,7 +62,7 @@
   </script>
   
   <div class="mb-3 input-file-upload">
-    <button
+    <button type="button"
       class="file-upload-wrapper {error ? 'has-error' : ''}"
       onclick={() => fileInputRef.click()}
     >

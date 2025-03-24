@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { baseUrl } from "$lib/index.js";
     import { onDestroy } from "svelte";
     import { writable } from "svelte/store";
 
@@ -7,7 +8,8 @@
         onChange?: (value: string) => void;
      }>();
 
-    let value = $state("");
+    let selectedValue = $state(""); // Untuk tampilan di input
+    let value = $state(""); // Untuk dikirim ke API
 
     let filteredOptions = writable<any>([]); // Data dari API
     let showOptions = writable(false);
@@ -27,7 +29,7 @@
         abortController = new AbortController();
 
         try {
-            const response = await fetch(`http://localhost:8000/api/v1/option/city/${query}`, {
+            const response = await fetch(`${baseUrl}/api/v1/option/city/${query}`, {
                 signal: abortController.signal,
                 credentials: "include",
                 method: "GET",
@@ -62,6 +64,7 @@
     }
 
     function selectOption(option: any) {
+        selectedValue = option.description;
         value = option.data_id;
         showOptions.set(false);
     }
@@ -79,7 +82,7 @@
     <input
         type="text"
         class="input"
-        bind:value
+        bind:value={selectedValue}
         oninput={onInput}
         placeholder={placeholder}
     />
@@ -87,13 +90,15 @@
     {#if $showOptions}
         <ul class="options">
             {#each $filteredOptions as option}
-                <li onclick={() => selectOption(option)}>{option.description}</li>
+                <li><button type="button" class="option-btn" onclick={() => selectOption(option)}>
+                    {option.description}
+                </button></li>
             {/each}
         </ul>
     {/if}
 </div>
 
-<style>
+<style lang="scss" scoped>
     .autocomplete {
         position: relative;
         width: 100%;
@@ -123,6 +128,14 @@
     .options li {
         padding: 8px;
         cursor: pointer;
+
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
     }
 
     .options li:hover {

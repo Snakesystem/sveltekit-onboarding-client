@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Reexport your entry components here
 import { writable } from "svelte/store";
+export const baseUrl = "http://localhost";
 
 export const userInfoData = {
     autonid: 0,

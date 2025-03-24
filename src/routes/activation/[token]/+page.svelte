@@ -18,7 +18,7 @@
 
         if (token) {
             try {
-                const res = await fetch(`http://localhost:8000/api/v1/auth/activation/${token}`);
+                const res = await fetch(`http://:localhost/api/v1/auth/activation/${token}`);
                 const data = await res.json();
                 result = data;
             } catch (error) {

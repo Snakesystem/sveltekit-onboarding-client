@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-    import { getInitials, userInfo } from "../lib/index.js";
+    import { baseUrl, getInitials, userInfo } from "../lib/index.js";
     import { cubicOut } from "svelte/easing";
     import { tweened } from "svelte/motion";
 
@@ -20,7 +20,7 @@
     }
 
     async function logout() {
-        await fetch("http://localhost:8000/api/v1/auth/logout", {
+        await fetch(`${baseUrl}/api/v1/auth/logout`, {
             credentials: "include",
             method: "POST",
             headers: {

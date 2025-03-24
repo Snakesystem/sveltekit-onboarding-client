@@ -3,7 +3,7 @@
     import { onMount, setContext } from "svelte";
     import { fade, fly } from "svelte/transition";
     import { goto } from "$app/navigation";
-    import { userInfo, userInfoData } from "../../lib/index.js";
+    import { baseUrl, userInfo, userInfoData } from "../../lib/index.js";
     import Loading from "../../components/Loading.svelte";
     import Header from "../../components/Header.svelte";
     import { getStores } from "$app/stores";
@@ -18,7 +18,7 @@
 
     async function getUserInfo() {
         loading = true;
-        const response = await fetch("http://localhost:8000/api/v1/user/userinfo", {
+        const response = await fetch(`${baseUrl}/api/v1/user/userinfo`, {
             credentials: "include",
             method: "GET",
             headers: {
@@ -41,7 +41,7 @@
             return;
         }
 
-        if(response.data.idcard_file === "" || response.data.selfie_file === "" || response.data.signature_file === "") {
+        if(response.data.idcard_file !== "" || response.data.selfie_file === "" || response.data.signature_file === "") {
             goto("/cif");
         } else {
             if(response.data.stage === 1) {

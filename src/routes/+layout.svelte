@@ -5,6 +5,7 @@
   import '../assets/css/style.css';
   import '../assets/scss/style.scss';
   import Loading from "../components/Loading.svelte";
+  import { baseUrl } from "$lib/index.js";
 
   let pathname: string = "";
   let loading = false;
@@ -16,7 +17,7 @@
 
   const checkSession = async () => {
     loading = true;
-    await fetch("http://localhost:8000/api/v1/auth/session", {
+    await fetch(`${baseUrl}/api/v1/auth/session`, {
       credentials: "include",
       method: "GET",
       headers: {

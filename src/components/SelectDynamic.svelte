@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { baseUrl } from "$lib/index.js";
   import { onMount } from "svelte";
 
   const { viewData, placeholder, code = "", description = "", onChange, required=false, disabled=false } = $props<{
@@ -20,7 +21,7 @@
   // Fetch data dari API saat komponen dipasang
   onMount(async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/option/${viewData}`, {
+      const res = await fetch(`${baseUrl}/api/v1/option/${viewData}`, {
         method: "GET",
         credentials: "include",
         headers: {

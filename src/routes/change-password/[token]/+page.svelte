@@ -2,7 +2,7 @@
     import MainContext from "../../../components/MainContext.svelte";
     import { getStores } from "$app/stores";
     import { onMount } from "svelte";
-    import { confirmPassword, validPassword } from "$lib/index.js";
+    import { baseUrl, confirmPassword, validPassword } from "$lib/index.js";
 
     const { page } = getStores();
     const resetData = $state({
@@ -28,7 +28,7 @@
     async function changePassword() {
         result.message = "Processing...";
         result.message = "Processing...";
-        const res = await fetch(`http://localhost:8000/api/v1/auth/change-password`, {
+        const res = await fetch(`${baseUrl}/api/v1/auth/change-password`, {
             method: "POST",
             credentials: "include",
             headers: {

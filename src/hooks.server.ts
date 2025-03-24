@@ -1,8 +1,9 @@
+import { baseUrl } from '$lib/index.js';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
     try {
-        const res = await fetch('http://localhost:8000/api/v1/auth/session', {
+        const res = await fetch(`${baseUrl}/api/v1/auth/session`, {
             credentials: 'include',
             headers: {
                 cookie: event.request.headers.get('cookie') || ''

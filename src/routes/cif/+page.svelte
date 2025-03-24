@@ -1,12 +1,16 @@
 <script lang="ts">
-    import { userInfo } from "$lib/index.js";
+    import { baseUrl, userInfo } from "$lib/index.js";
     import UploadFileField from "../../components/UploadFileField.svelte";
 
     let data = $state($userInfo.data);
-    let dirty = $state(false);
+    let dirty = $state({
+        idcard_file: false,
+        selfie_file: false,
+        signature_file: false
+    });
 
     async function saveCIFFile() {
-        await fetch("http://localhost:8000/api/v1/user/save-cif-file", {
+        await fetch(`${baseUrl}/api/v1/user/save-cif-file`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -25,18 +29,18 @@
 </script>
 
 <form class="mt-2" onsubmit={(e) => {
-    e.preventDefault();
-    saveCIFFile();
-}} >
+        e.preventDefault();
+        saveCIFFile();
+    }} >
     <div class="cif-content">
         <h4 class="fw-semibold">File Requirements</h4>
         <p>Please upload documents to verify data authenticity.</p>
         <div class="row">
-            <div class="col-12 col-lg-6 mb-3">
+            <div class="col-12 col-lg-4 mb-3">
                 <label for="idcard_file" class="form-label">ID Card File <span class="text-danger">*</span></label>
                 <div class="card">
                     <div class="card-body">
-                        <img src={dirty ? data.idcard_file : `http://localhost:8000/api/v1/file/${data.idcard_file}`} class="img-fluid" alt="">
+                        <img src={dirty.idcard_file ? data.idcard_file : `${baseUrl}/upload/${data.idcard_file}`} class="img-fluid" alt="">
                     </div>
                     <div class="card-footer">
                         <UploadFileField 
@@ -45,17 +49,17 @@
                             size={{ width: 324, height: 205 }} 
                             on:change={(e) => {
                                 data.idcard_file = e.detail.value;
-                                dirty = true;
+                                dirty.idcard_file = true;
                             }}>
                         </UploadFileField>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6 mb-3">
+            <div class="col-12 col-lg-4 mb-3">
                 <label for="selfie_file" class="form-label">ID Card File <span class="text-danger">*</span></label>
                 <div class="card">
                     <div class="card-body">
-                        <img src={dirty ? data.selfie_file : `http://localhost:8000/api/v1/file/${data.selfie_file}`} class="img-fluid" alt="">
+                        <img src={dirty.selfie_file ? data.selfie_file : `${baseUrl}/upload/${data.selfie_file}`} class="img-fluid" alt="">
                     </div>
                     <div class="card-footer">
                         <UploadFileField 
@@ -64,17 +68,17 @@
                             size={{ width: 324, height: 205 }} 
                             on:change={(e) => {
                                 data.selfie_file = e.detail.value;
-                                dirty = true;
+                                dirty.selfie_file = true;
                             }}>
                         </UploadFileField>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6 mb-3">
-                <label for="signature_file" class="form-label">ID Card File <span class="text-danger">*</span></label>
+            <div class="col-12 col-lg-4 mb-3">
+                <label for="signature_file" class="form-label">Signature File <span class="text-danger">*</span></label>
                 <div class="card">
                     <div class="card-body">
-                        <img src={dirty ? data.signature_file : `http://localhost:8000/api/v1/file/${data.signature_file}`} class="img-fluid" alt="">
+                        <img src={dirty.signature_file ? data.signature_file : `${baseUrl}/upload/${data.signature_file}`} class="img-fluid" alt="">
                     </div>
                     <div class="card-footer">
                         <UploadFileField 
@@ -83,7 +87,7 @@
                             size={{ width: 324, height: 205 }} 
                             on:change={(e) => {
                                 data.signature_file = e.detail.value;
-                                dirty = true;
+                                dirty.signature_file = true;
                             }}>
                         </UploadFileField>
                     </div>
