@@ -1,10 +1,9 @@
 <script lang="ts">
 
-    import { onMount, setContext } from "svelte";
+    import { onDestroy, onMount, setContext } from "svelte";
     import { fade, fly } from "svelte/transition";
     import { goto } from "$app/navigation";
     import { baseUrl, userInfo, userInfoData } from "../../lib/index.js";
-    import Loading from "../../components/Loading.svelte";
     import Header from "../../components/Header.svelte";
     import { getStores } from "$app/stores";
     export let data;
@@ -41,36 +40,24 @@
             return;
         }
 
-        if(response.data.idcard_file !== "" || response.data.selfie_file === "" || response.data.signature_file === "") {
-            goto("/cif");
-        } else {
-            if(response.data.stage === 1) {
-                goto("/cif/data-pribadi");
-            } else if(response.data.stage <= 2) {
-                goto("/cif/data-bank");
-            } else if(response.data.stage <= 3) {
-                goto("/cif/data-pekerjaan");
-            } else if(response.data.stage <= 4) {
-                goto("/cif/data-pendukung");
-            }
-        }
-
         loading = false;
         userInfo.set(response);
     }
 
-    setContext("getUserInfo", getUserInfo);
+    // setContext("getUserInfo", getUserInfo);
 
     onMount(() => {
         getUserInfo();
-        return () => {
-            userInfo.set({
-                result: false,
-                message: "",
-                data: userInfoData,
-                error: null
-            });
-        };
+    });
+
+    onDestroy(() => {
+        // Reset userInfo hanya kalau layout benar-benar di-unmount
+        userInfo.set({
+            result: false,
+            message: "",
+            data: userInfoData,
+            error: null
+        });
     });
 
 </script>

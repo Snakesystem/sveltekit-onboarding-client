@@ -61,7 +61,7 @@
     }
   </script>
   
-  <div class="mb-3 input-file-upload">
+  <div class="input-file-upload">
     <button type="button"
       class="file-upload-wrapper {error ? 'has-error' : ''}"
       onclick={() => fileInputRef.click()}
@@ -85,7 +85,7 @@
   
   <style>
     .file-upload-wrapper {
-      border: 2px dashed #ccc;
+      border: 2px dashed #cac5c5;
       padding: 10px;
       text-align: center;
       cursor: pointer;

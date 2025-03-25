@@ -2,14 +2,15 @@
     import { userInfo } from "$lib/index.js";
     import { fly } from "svelte/transition";
     import { getContext } from "svelte";
+  import { goto } from "$app/navigation";
 
-    const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
+    // const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
 
-    if($userInfo.data.stage < 2) {
-        getUserInfo();
-    }
-
-    let data = $state($userInfo.data);
+    $effect(() => {
+        // if($userInfo.data.stage === 1) {
+        //     goto("/cif/data-pribadi");
+        // }
+    });
 
 </script>
 
@@ -20,19 +21,19 @@
         <div class="row">
             <div class="col-12 col-lg-6 mb-3">
                 <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" id="email" bind:value={data.email} required>
+                <input type="email" class="form-control" id="email" bind:value={$userInfo.data.email} required>
             </div>
             <div class="col-12 col-lg-6 mb-3">
                 <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="full_name" bind:value={data.full_name} required>
+                <input type="text" class="form-control" id="full_name" bind:value={$userInfo.data.full_name} required>
             </div>
             <div class="col-12 col-lg-6 mb-3">
                 <label for="mobile_phone" class="form-label">Mobile Phone <span class="text-danger">*</span></label>
-                <input type="tel" class="form-control" id="mobile_phone" bind:value={data.mobile_phone} required>
+                <input type="tel" class="form-control" id="mobile_phone" bind:value={$userInfo.data.mobile_phone} required>
             </div>
             <div class="col-12 col-lg-6 mb-3">
                 <label for="birth_date" class="form-label">Date of Birth <span class="text-danger">*</span></label>
-                <input type="date" class="form-control" id="birth_date" bind:value={data.birth_date} required>
+                <input type="date" class="form-control" id="birth_date" bind:value={$userInfo.data.birth_date} required>
             </div>
         </div>
     </div>
