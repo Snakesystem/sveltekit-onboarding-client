@@ -1,15 +1,14 @@
 <script lang="ts">
     import { userInfo } from "$lib/index.js";
-    import { fly } from "svelte/transition";
     import { getContext } from "svelte";
-  import { goto } from "$app/navigation";
+    import { goto } from "$app/navigation";
 
-    // const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
+    const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
 
     $effect(() => {
-        // if($userInfo.data.stage === 1) {
-        //     goto("/cif/data-pribadi");
-        // }
+        if($userInfo.data.stage === 1) {
+            goto("/cif/data-pribadi");
+        }
     });
 
 </script>

@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
+    import { goto } from "$app/navigation";
     import { userInfo } from "$lib/index.js";
     import { getContext } from "svelte";
 
-    // const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
+    const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
 
     $effect(() => {
-        // if($userInfo.data.stage <= 2) {
-        //     goto("/cif/data-bank");
-        // }
+        if($userInfo.data.stage <= 2) {
+            goto("/cif/data-bank");
+        }
     });
 
 </script>

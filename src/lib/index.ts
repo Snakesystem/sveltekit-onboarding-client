@@ -1,6 +1,6 @@
 // Reexport your entry components here
 import { writable } from "svelte/store";
-export const baseUrl = "http://localhost";
+export const baseUrl = "http://localhost:8000";
 
 export const userInfoData = {
     autonid: 0,
@@ -234,4 +234,4 @@ export function validPhone(node: HTMLInputElement) {
 
 export function formatDate(datetime: string) {
     return datetime.split(" ")[0]; // Ambil hanya YYYY-MM-DD
-  }
+}

@@ -3,12 +3,12 @@
     import { userInfo } from "$lib/index.js";
     import { getContext } from "svelte";
 
-    // const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
+    const getUserInfo = getContext<() => Promise<void>>("getUserInfo");
     
     $effect(() => {
-        // if($userInfo.data.stage <= 3) {
-        //     goto("/cif/data-pekerjaan");
-        // }
+        if($userInfo.data.stage <= 3) {
+            goto("/cif/data-pekerjaan");
+        }
     });
 
 </script>

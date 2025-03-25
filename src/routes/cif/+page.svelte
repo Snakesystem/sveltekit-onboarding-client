@@ -3,7 +3,6 @@
     import { baseUrl, userInfo } from "$lib/index.js";
     import { onMount } from "svelte";
     import UploadFileField from "../../components/UploadFileField.svelte";
-
     let images = $state({
         idcard_file: '/img/valid-ktp.png',
         selfie_file: '/img/valid-selfie.png',
@@ -11,7 +10,6 @@
     });
 
     $effect(() => {
-
         images.idcard_file =`${baseUrl}/upload/${$userInfo.data.idcard_file}`;
         images.selfie_file = `${baseUrl}/upload/${$userInfo.data.selfie_file}`;
         images.signature_file = `${baseUrl}/upload/${$userInfo.data.signature_file}`;

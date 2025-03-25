@@ -1,9 +1,8 @@
 <script lang="ts">
-
     import { onDestroy, onMount, setContext } from "svelte";
     import { fade, fly } from "svelte/transition";
     import { goto } from "$app/navigation";
-    import { baseUrl, userInfo, userInfoData } from "../../lib/index.js";
+    import { baseUrl, formatDate, userInfo, userInfoData } from "../../lib/index.js";
     import Header from "../../components/Header.svelte";
     import { getStores } from "$app/stores";
     export let data;
@@ -17,34 +16,44 @@
 
     async function getUserInfo() {
         loading = true;
-        const response = await fetch(`${baseUrl}/api/v1/user/userinfo`, {
-            credentials: "include",
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((res: any) => {
+        try {
+            const response = await fetch(`${baseUrl}/api/v1/user/userinfo`, {
+                credentials: "include",
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
             loading = false;
-            if (res.ok) {
-                return res.json();
-            } else {
-                return res.json()
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.log(errorData);
+                return;
             }
-        }).catch((err) => {
+
+            let data = await response.json();
+
+            // **Pastikan data.result benar sebelum mengakses data**
+            if (!data.result) {
+                goto("/login");
+                return;
+            }
+
+            // **Format tanggal sebelum disimpan**
+            if (data.result) {
+                data.data.birth_date = formatDate(data.data.birth_date);
+                data.data.idcard_expire_date = formatDate(data.data.idcard_expire_date);
+            }
+
+            userInfo.set(data);
+        } catch (err) {
             loading = false;
-            console.log(err)
-        });
-
-        if(!response.result) {
-            goto("/login");
-            return;
+            console.log("Error fetching user info:", err);
         }
-
-        loading = false;
-        userInfo.set(response);
     }
 
-    // setContext("getUserInfo", getUserInfo);
+    setContext("getUserInfo", getUserInfo);
 
     onMount(() => {
         getUserInfo();

@@ -1,19 +1,13 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
     import { formatDate, userInfo } from "$lib/index.js";
-  import { onMount } from "svelte";
+    import { onMount } from "svelte";
     import AutoComplete from "../../../components/AutoComplete.svelte";
     import SelectDynamic from "../../../components/SelectDynamic.svelte";
 
     let changeIf = $state({
         education: 0,
     });
-
-    $effect(() => {
-
-        $userInfo.data.birth_date = formatDate($userInfo.data.birth_date);
-        $userInfo.data.idcard_expire_date = formatDate($userInfo.data.idcard_expire_date);
-    })
 
     onMount(() => {
         if($userInfo.data.idcard_file === "" || $userInfo.data.selfie_file === "" || $userInfo.data.signature_file === "") {
@@ -49,7 +43,7 @@
 
 </script>
 
-<form class="mt-2" onsubmit={(e) => {e.preventDefault()}} >
+<form class="mt-2"  >
     <div class="cif-content">
         <h4 class="fw-semibold">Personal Information</h4>
         <p>Isi datamu sendiri</p>
